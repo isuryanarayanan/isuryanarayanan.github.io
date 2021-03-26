@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import { Canvas } from 'react-three-fiber';
 import {OrbitControls} from "@react-three/drei";
+
 function RenderingBox(){
 	return (
 		<mesh>
@@ -13,12 +14,10 @@ function RenderingBox(){
 
 function App() {
   return (
-    <div className="App">
-		<Canvas >
-		<RenderingBox />
-		<OrbitControls />
+		<Canvas> 
+			<RenderingBox />
+			<OrbitControls />
 		</Canvas>
-    </div>
   );
 }
 
