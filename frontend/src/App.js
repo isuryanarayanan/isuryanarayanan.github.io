@@ -1,23 +1,33 @@
 import './App.css';
-import React from 'react';
-import { Canvas } from 'react-three-fiber';
-import {OrbitControls} from "@react-three/drei";
+import React, {useRef} from 'react';
+import { Canvas, useFrame } from 'react-three-fiber';
+import { OrbitControls} from '@react-three/drei';
 
-function RenderingBox(){
+function Box(props){
+	const mesh = useRef()
+
+	useFrame(()=>{
+		mesh.current.rotation.x = mesh.current.rotation.y += 0.01
+	})
+
 	return (
-		<mesh>
-			<boxBufferGeometry args={[1, 1, 1]}/>
-			<meshStandardMaterial color="#820852" />
-		</mesh> 
-	)
+		<mesh {...props} ref={mesh}>
+		    <boxBufferGeometry attach="geometry" args={[1, 2, 1]} />
+		    <meshStandardMaterial metalness={0.9} attach="material" color={'#f4511e'} />
+		</mesh>
+	);
 }
 
 function App() {
   return (
-		<Canvas> 
-			<RenderingBox />
-			<OrbitControls />
+		<>
+		<Canvas>
+		<ambientLight intensity={1} />
+		<spotLight position={[10, 10, 10]} angle={0.15} />
+		<Box position={[0, 0, 0]} />
+		<OrbitControls />
 		</Canvas>
+		</>
   );
 }
 
