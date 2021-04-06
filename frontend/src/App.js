@@ -1,30 +1,42 @@
 import './App.css';
-import React, {useRef} from 'react';
-import { Canvas, useFrame } from 'react-three-fiber';
+import React, {Suspense, useRef} from 'react';
+import { Canvas, useFrame, useLoader } from 'react-three-fiber';
 import { OrbitControls} from '@react-three/drei';
+import {TextureLoader} from 'three/src/loaders/TextureLoader';
 
-function Box(props){
+function Box(props){	
 	const mesh = useRef()
+	const texture = useLoader(TextureLoader, './isuryanarayanan.png')
+	texture.offset.set(0.2, 0.2)	
+	console.log(texture)
 
-	useFrame(()=>{
+	useFrame(({mouse})=>{
 		mesh.current.rotation.x = mesh.current.rotation.y += 0.01
+		mesh.current.position.x = mouse.x*5;
+		mesh.current.position.y = mouse.y*5;
 	})
 
 	return (
-		<mesh {...props} ref={mesh}>
-		    <boxBufferGeometry attach="geometry" args={[1, 2, 1]} />
-		    <meshStandardMaterial metalness={0.9} attach="material" color={'#f4511e'} />
+		<Suspense>
+		<mesh {...props} ref={mesh} >
+				<torusGeometry args={[10,1,10,100]} />
+		    <meshStandardMaterial
+					attach="material" 
+					map={texture}
+				/>
 		</mesh>
+		</Suspense>
 	);
 }
 
+
 function App() {
-  return (
+	return (
 		<>
-		<Canvas>
+		<Canvas >
 		<ambientLight intensity={1} />
 		<spotLight position={[10, 10, 10]} angle={0.15} />
-		<Box position={[0, 0, 0]} />
+		<Box position={[0, 0, -15]}/>
 		<OrbitControls />
 		</Canvas>
 		</>
