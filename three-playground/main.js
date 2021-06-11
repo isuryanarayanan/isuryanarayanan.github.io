@@ -40,7 +40,7 @@ function init() {
   camera.position.set(0, 200, 2000);
 
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x363636);
+  scene.background = new THREE.Color(0x000000);
 
   light = new THREE.DirectionalLight(0xffffff);
   light.position.set(0.5, 0.5, 1);
