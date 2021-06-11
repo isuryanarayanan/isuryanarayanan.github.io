@@ -1,7 +1,0 @@
-.home-wrapper{
-	position: absolute;
-	z-index: 9999;
-}
-canvas{
-	background:linear-gradient(171.1deg, #FFECEC 5.7%, rgba(255, 255, 255, 0) 93.23%), #FFFFFF;
-}
