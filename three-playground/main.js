@@ -53,12 +53,8 @@ function init() {
   ambientLight = new THREE.AmbientLight(0x080808);
   scene.add(ambientLight);
 
-  // MATERIALS
-
   materials = generateMaterials();
   current_material = "hatching";
-
-  // MARCHING CUBES
 
   resolution = 28;
 
@@ -76,35 +72,16 @@ function init() {
 
   scene.add(effect);
 
-  // RENDERER
-
   renderer = new THREE.WebGLRenderer();
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   container.appendChild(renderer.domElement);
 
-  // CONTROLS
-
-  //const controls = new OrbitControls(camera, renderer.domElement);
-  //controls.minDistance = 500;
-  //controls.maxDistance = 5000;
-
-  // STATS
-
-  //stats = new Stats();
-  //container.appendChild(stats.dom);
-
-  // GUI
-
   setupGui();
-
-  // EVENTS
 
   window.addEventListener("resize", onWindowResize);
 }
-
-//
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -179,8 +156,6 @@ function createShaderMaterial(shader, light, ambientLight) {
 
   return material;
 }
-
-//
 
 function setupGui() {
   const createHandler = function (id) {
@@ -269,8 +244,6 @@ function updateCubes(object, time, numblobs, floor, wallx, wallz) {
   if (wallx) object.addPlaneX(2, 12);
 }
 
-//
-
 function animate() {
   requestAnimationFrame(animate);
 
@@ -302,8 +275,6 @@ function render() {
     effectController.wallz
   );
 
-  // materials
-
   if (effect.material instanceof THREE.ShaderMaterial) {
     effect.material.uniforms["uBaseColor"].value.setHSL(
       effectController.hue,
@@ -318,8 +289,6 @@ function render() {
     );
   }
 
-  // lights
-
   light.position.set(
     effectController.lx,
     effectController.ly,
@@ -332,8 +301,6 @@ function render() {
     effectController.lsaturation,
     effectController.llightness
   );
-
-  // render
 
   effect.rotation.x = effect.rotation.y + 0.01;
 
